@@ -30,6 +30,8 @@ int _printf(const char *format, ...)
 				len += _putchar('%');
 			else if (format[i] == 'd' || format[i] == 'i')
 				len += print_number(va_arg(args, int));
+			else if (format[i] == 'b')
+				len += print_binary(va_arg(args, unsigned int));
 			else
 				len += _putchar('%'), len += _putchar(format[i]);
 		}
@@ -92,6 +94,32 @@ int print_number(int n)
 	}
 
 	len += _putchar('0' + num % 10);
+
+	return (len);
+}
+
+/**
+ * print_binary - prints unsigned int to binary
+ * @n: unsigned int to convert to binary
+ *
+ * Return: the number of characters printed
+ */
+int print_binary(unsigned int n)
+{
+	int len = 0;
+	unsigned int mask = 1;
+
+	while (mask <= n / 2)
+		mask *= 2;
+
+	while (mask > 0)
+	{
+		if (n & mask)
+			len += _putchar('1');
+		else
+			len += _putchar('0');
+		mask /= 2;
+	}
 
 	return (len);
 }
