@@ -28,6 +28,8 @@ int _printf(const char *format, ...)
 				len += print_str(va_arg(args, char *));
 			else if (format[i] == '%')
 				len += _putchar('%');
+			else if (format[i] == 'd' || format[i] == 'i')
+				len += print_number(va_arg(args, int));
 			else
 				len += _putchar('%'), len += _putchar(format[i]);
 		}
@@ -61,6 +63,35 @@ int print_str(char *str)
 		str++;
 		len++;
 	}
+
+	return (len);
+}
+
+/**
+ * print_number - prints an integer
+ * @n: integer to print
+ *
+ * Return: the number of characters printed
+ */
+int print_number(int n)
+{
+	unsigned int num;
+	int len = 0;
+
+	if (n < 0)
+	{
+		len += _putchar('-');
+		num = -n;
+	}
+	else
+		num = n;
+
+	if (num / 10 != 0)
+	{
+		len += print_number(num / 10);
+	}
+
+	len += _putchar('0' + num % 10);
 
 	return (len);
 }
