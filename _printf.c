@@ -64,6 +64,8 @@ int format_handler(char format, va_list args)
 		len += print_hex(va_arg(args, unsigned int), 0);
 	else if (format == 'X')
 		len += print_hex(va_arg(args, unsigned int), 1);
+	else if (format == 'S')
+		len+= print_S(va_arg(args, char *));
 	else
 		len += _putchar('%'), len += _putchar(format);
 
