@@ -24,17 +24,7 @@ int _printf(const char *format, ...)
 		if (format[i] == '%')
 		{
 			i++;
-
 			len += format_handler(format[i], args);
-
-			if (format[i] == 'c')
-				len += _putchar(va_arg(args, int));
-			else if (format[i] == 's')
-				len += print_str(va_arg(args, char *));
-			else if (format[i] == '%')
-				len += _putchar('%');
-			else
-				len += _putchar('%'), len += _putchar(format[i]);
 		}
 		else
 			len += _putchar(format[i]);
