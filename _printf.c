@@ -22,26 +22,7 @@ int _printf(const char *format, ...)
 		if (format[i] == '%')
 		{
 			i++;
-			if (format[i] == 'c')
-				len += _putchar(va_arg(args, int));
-			else if (format[i] == 's')
-				len += print_str(va_arg(args, char *));
-			else if (format[i] == '%')
-				len += _putchar('%');
-			else if (format[i] == 'd' || format[i] == 'i')
-				len += print_number(va_arg(args, int));
-			else if (format[i] == 'b')
-				len += print_binary(va_arg(args, unsigned int));
-			else if (format[i] == 'u')
-				len += print_unsi(va_arg(args, unsigned int), 10);
-			else if (format[i] == 'o')
-				len += print_unsi(va_arg(args, unsigned int), 8);
-			else if (format[i] == 'x')
-				len += print_hex(va_arg(args, unsigned int), 0);
-			else if (format[i] == 'X')
-				len += print_hex(va_arg(args, unsigned int), 1);
-			else
-				len += _putchar('%'), len += _putchar(format[i]);
+			len += format_handler(format[i], args);
 		}
 		else
 			len += _putchar(format[i]);
@@ -55,85 +36,36 @@ int _printf(const char *format, ...)
 }
 
 /**
- * print_str - prints string
- * @str: string to print
+ * format_handler - handles format directives
+ * @format: the format character
+ * @args: the va_list arguments
  *
- * Return: the number of characters printed
+ * Return: number of characters printed
  */
-int print_str(char *str)
+int format_handler(char format, va_list args)
 {
 	int len = 0;
 
-	if (str == NULL)
-		str = "(null)";
-
-	while (*str)
-	{
-		_putchar(*str);
-		str++;
-		len++;
-	}
-
-	return (len);
-}
-
-/**
- * print_number - prints an integer
- * @n: integer to print
- *
- * Return: the number of characters printed
- */
-int print_number(int n)
-{
-	unsigned int num;
-	int len = 0;
-
-	if (n == 0)
-	{
-		len += _putchar('0');
-		return (len);
-	}
-
-	if (n < 0)
-	{
-		len += _putchar('-');
-		num = -n;
-	}
+	if (format == 'c')
+		len += _putchar(va_arg(args, int));
+	else if (format == 's')
+		len += print_str(va_arg(args, char *));
+	else if (format == '%')
+		len += _putchar('%');
+	else if (format == 'd' || format == 'i')
+		len += print_number(va_arg(args, int));
+	else if (format == 'b')
+		len += print_binary(va_arg(args, unsigned int));
+	else if (format == 'u')
+		len += print_unsi(va_arg(args, unsigned int), 10);
+	else if (format == 'o')
+		len += print_unsi(va_arg(args, unsigned int), 8);
+	else if (format == 'x')
+		len += print_hex(va_arg(args, unsigned int), 0);
+	else if (format == 'X')
+		len += print_hex(va_arg(args, unsigned int), 1);
 	else
-		num = n;
-
-	if (num / 10 != 0)
-	{
-		len += print_number(num / 10);
-	}
-
-	len += _putchar('0' + num % 10);
-
-	return (len);
-}
-
-/**
- * print_binary - prints unsigned int to binary
- * @n: unsigned int to convert to binary
- *
- * Return: the number of characters printed
- */
-int print_binary(unsigned int n)
-{
-	int len = 0;
-	unsigned int mask = 1;
-
-	while (mask <= n / 2)
-		mask *= 2;
-
-	while (mask > 0)
-	{
-		if (n & mask)
-			len += _putchar('1');
-		else
-			len += _putchar('0');
-		mask /= 2;
-	}
+		len += _putchar('%'), len += _putchar(format);
 
 	return (len);
 }
