@@ -32,6 +32,14 @@ int _printf(const char *format, ...)
 				len += print_number(va_arg(args, int));
 			else if (format[i] == 'b')
 				len += print_binary(va_arg(args, unsigned int));
+			else if (format[i] == 'u')
+				len += print_unsi(va_arg(args, unsigned int), 10);
+			else if (format[i] == 'o')
+				len += print_unsi(va_arg(args, unsigned int), 8);
+			else if (format[i] == 'x')
+				len += print_hex(va_arg(args, unsigned int), 0);
+			else if (format[i] == 'X')
+				len += print_hex(va_arg(args, unsigned int), 1);
 			else
 				len += _putchar('%'), len += _putchar(format[i]);
 		}
@@ -79,6 +87,12 @@ int print_number(int n)
 {
 	unsigned int num;
 	int len = 0;
+
+	if (n == 0)
+	{
+		len += _putchar('0');
+		return (len);
+	}
 
 	if (n < 0)
 	{
