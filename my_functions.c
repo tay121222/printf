@@ -8,30 +8,36 @@
  *
  * Return: the number of characters printed
  */
-int print_unsi(unsigned long int n, int base)
+int print_unsi(unsigned int n, int base)
 {
-	int len = 0;
-	char *digits = "0123456789";
-	char buffer[1024];
-	int i = 0;
+	int i;
+	int *array;
+	int count = 0;
+	unsigned int temp = n;
 
-	if (n == 0)
-		return (_putchar('0'));
-
-	while (n != 0)
+	while (n / base != 0)
 	{
-		buffer[i] = digits[n % base];
 		n /= base;
-		i++;
+		count++;
 	}
+	count++;
+	array = malloc(count * sizeof(int));
 
-	while (i > 0)
+	for (i = 0; i < count; i++)
 	{
-		i--;
-		len += _putchar(buffer[i]);
+		array[i] = temp % base;
+		temp /= base;
 	}
 
-	return (len);
+	for (i = count - 1; i >= 0; i--)
+	{
+		if (array[i] > 9)
+			_putchar(array[i] + 87);
+		else
+			_putchar(array[i] + '0');
+	}
+	free(array);
+	return (count);
 }
 
 /**
@@ -62,7 +68,7 @@ int print_hex(unsigned int n, int uppercase)
 		temp /= 16;
 	}
 
-	for (i = count - 1; i >= 0;i--)
+	for (i = count - 1; i >= 0; i--)
 	{
 		if (array[i] > 9)
 		{

@@ -57,9 +57,9 @@ int format_handler(char format, va_list args)
 	else if (format == 'b')
 		len += print_binary(va_arg(args, unsigned long int));
 	else if (format == 'u')
-		len += print_unsi(va_arg(args, unsigned long int), 10);
+		len += print_unsi(va_arg(args, unsigned int), 10);
 	else if (format == 'o')
-		len += print_unsi(va_arg(args, unsigned long int), 8);
+		len += print_unsi(va_arg(args, unsigned int), 8);
 	else if (format == 'x')
 		len += print_hex(va_arg(args, unsigned int), 0);
 	else if (format == 'X')

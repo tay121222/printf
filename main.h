@@ -11,7 +11,7 @@ int _putchar(char c);
 int print_str(char *str);
 int print_number(int n);
 int print_binary(unsigned long int n);
-int print_unsi(unsigned long int n, int base);
+int print_unsi(unsigned int n, int base);
 int print_hex(unsigned int n, int uppercase);
 int format_handler(char format, va_list args);
 int write_buffer(char *buffer, int len);
