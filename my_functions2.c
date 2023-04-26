@@ -52,3 +52,41 @@ int print_unsi2(unsigned int n, int base)
 
 	return (i);
 }
+
+/**
+ * print_S - prints string with non-printable char
+ * @str: the string to print
+ *
+ * Return: the number of characters printed
+ */
+int print_S(char *str)
+{
+	int count = 0;
+	int i;
+	int output_fd = 1;
+	int cast;
+
+	for (i = 0; str[i] != '\0'; i++)
+	{
+		if (str[i] >= 32 && str[i] < 127)
+		{
+			_putchar(str[i]);
+			count++;
+		}
+		else
+		{
+			_putchar('\\');
+			_putchar('x');
+			count += 2;
+			cast = str[i];
+			if (cast < 16)
+			{
+				_putchar('0');
+				count++;
+			}
+			count += print_hex(output_fd, (unsigned int)str[i], 1);
+		}
+	}
+
+	return (count);
+}

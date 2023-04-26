@@ -16,5 +16,6 @@ int print_hex(int output_fd, unsigned int n, int uppercase);
 int format_handler(char format, va_list args);
 int write_buffer(char *buffer, int len);
 int print_unsi2(unsigned int n, int base);
+int print_S(char *str);
 
 #endif
