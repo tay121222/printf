@@ -1,9 +1,10 @@
-#include <stdarg.h>
-#include <stddef.h>
 #ifndef _PRINTF_PROJECT
 #define _PRINTF_PROJECT
 
-#define BUF_SIZE 1024;
+#include <stdarg.h>
+#include <stddef.h>
+
+#define BUF_SIZE 1024
 
 int _printf(const char *format, ...);
 int _putchar(char c);
