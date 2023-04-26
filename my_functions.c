@@ -92,7 +92,7 @@ int print_str(char *str)
  */
 int print_number(int n)
 {
-	unsigned int num;
+	unsigned long int num;
 	int len = 0;
 
 	if (n < 0)
@@ -120,10 +120,10 @@ int print_number(int n)
  * Return: the number of characters printed
  */
 
-int print_binary(unsigned int n)
+int print_binary(unsigned long int n)
 {
 	int len = 0;
-	unsigned int mask = 1;
+	unsigned long int mask = 1;
 
 	while (mask <= n / 2)
 		mask *= 2;
