@@ -45,6 +45,7 @@ int _printf(const char *format, ...)
 int format_handler(char format, va_list args)
 {
 	int len = 0;
+	int output_fd = 1;
 
 	if (format == 'c')
 		len += _putchar(va_arg(args, int));
@@ -59,11 +60,11 @@ int format_handler(char format, va_list args)
 	else if (format == 'u')
 		len += print_unsi2(va_arg(args, unsigned int), 10);
 	else if (format == 'o')
-		len += print_unsi(va_arg(args, unsigned int), 8);
+		len += print_unsi(output_fd, va_arg(args, unsigned int), 8);
 	else if (format == 'x')
-		len += print_hex(va_arg(args, unsigned int), 0);
+		len += print_hex(output_fd, va_arg(args, unsigned int), 0);
 	else if (format == 'X')
-		len += print_hex(va_arg(args, unsigned int), 1);
+		len += print_hex(output_fd, va_arg(args, unsigned int), 1);
 	else
 		len += _putchar('%'), len += _putchar(format);
 

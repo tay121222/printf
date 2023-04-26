@@ -1,19 +1,25 @@
+#define BUFFER_SIZE 1024
 #include "main.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
+
+static char buffer[BUFFER_SIZE];
 /**
  * print_unsi - prints unsgined int in a particular base
  * @n: unsigned int to print
  * @base: base to print in
+ * @output_fd: the output descriptor
  *
  * Return: the number of characters printed
  */
-int print_unsi(unsigned int n, int base)
+int print_unsi(int output_fd, unsigned int n, int base)
 {
 	int i;
 	int *array;
 	int count = 0;
 	unsigned int temp = n;
+	int buffer_index = 0;
 
 	while (n / base != 0)
 	{
@@ -32,10 +38,22 @@ int print_unsi(unsigned int n, int base)
 	for (i = count - 1; i >= 0; i--)
 	{
 		if (array[i] > 9)
-			_putchar(array[i] + 87);
+			buffer[buffer_index] = (array[i] + 87);
 		else
-			_putchar(array[i] + '0');
+			buffer[buffer_index] = (array[i] + '0');
+
+		buffer_index++;
+
+		if (buffer_index == 1024)
+		{
+			write(output_fd, buffer, 1024);
+			buffer_index = 0;
+		}
 	}
+
+	if (buffer_index != 0)
+		write(output_fd, buffer, buffer_index);
+
 	free(array);
 	return (count);
 }
@@ -44,15 +62,17 @@ int print_unsi(unsigned int n, int base)
  * print_hex - prints an unsigned int in hex
  * @n: number to print in hex
  * @uppercase: boolean to determine if to use uppercase
+ * @output_fd: the output descriptor
  *
  * Return: the number of characters printed
  */
-int print_hex(unsigned int n, int uppercase)
+int print_hex(int output_fd, unsigned int n, int uppercase)
 {
 	int i;
 	int *array;
 	int count = 0;
 	unsigned int temp = n;
+	int buffer_index = 0;
 
 	while (n / 16 != 0)
 	{
@@ -73,13 +93,25 @@ int print_hex(unsigned int n, int uppercase)
 		if (array[i] > 9)
 		{
 			if (uppercase)
-				_putchar(array[i] + 55);
+				buffer[buffer_index] = (array[i] + 55);
 			else
-				_putchar(array[i] + 87);
+				buffer[buffer_index] = (array[i] + 87);
 		}
 		else
-			_putchar(array[i] + '0');
+			buffer[buffer_index] = (array[i] + '0');
+
+		buffer_index++;
+
+		if (buffer_index == 1024)
+		{
+			write(output_fd, buffer, 1024);
+			buffer_index = 0;
+		}
 	}
+
+	if (buffer_index != 0)
+		write(output_fd, buffer, buffer_index);
+
 	free(array);
 	return (count);
 }
