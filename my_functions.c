@@ -92,17 +92,16 @@ int print_hex(unsigned int n, int uppercase)
  */
 int print_str(char *str)
 {
-	int len = 0;
+	int len = 0, i;
 
 	if (str == NULL)
 		str = "(null)";
 
-	while (*str)
-	{
-		_putchar(*str);
-		str++;
+	while (str[len])
 		len++;
-	}
+
+	for (i = 0; i < len; i++)
+		_putchar(str[i]);
 
 	return (len);
 }

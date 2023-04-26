@@ -52,18 +52,20 @@ int format_handler(char format, va_list args)
 		len += print_str(va_arg(args, char *));
 	else if (format == '%')
 		len += _putchar('%');
-	else if (format == 'd' || format == 'i')
-		len += print_number(va_arg(args, int));
-	else if (format == 'b')
-		len += print_binary(va_arg(args, unsigned long int));
-	else if (format == 'u')
-		len += print_unsi2(va_arg(args, unsigned int), 10);
-	else if (format == 'o')
-		len += print_unsi(va_arg(args, unsigned int), 8);
-	else if (format == 'x')
-		len += print_hex(va_arg(args, unsigned int), 0);
-	else if (format == 'X')
-		len += print_hex(va_arg(args, unsigned int), 1);
+	/**
+	* else if (format == 'd' || format == 'i')
+	*	len += print_number(va_arg(args, int));
+	* else if (format == 'b')
+	*	len += print_binary(va_arg(args, unsigned long int));
+	* else if (format == 'u')
+	*	len += print_unsi2(va_arg(args, unsigned int), 10);
+	* else if (format == 'o')
+	*	len += print_unsi(va_arg(args, unsigned int), 8);
+	* else if (format == 'x')
+	*	len += print_hex(va_arg(args, unsigned int), 0);
+	*else if (format == 'X')
+	*	len += print_hex(va_arg(args, unsigned int), 1);
+	*/
 	else
 		len += _putchar('%'), len += _putchar(format);
 
