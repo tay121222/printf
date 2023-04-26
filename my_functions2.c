@@ -27,7 +27,7 @@ int print_unsi2(unsigned int n, int base)
 
 	if (num > 0)
 	{
-		while (num /base != 0)
+		while (num / base != 0)
 		{
 			exp = exp * base;
 			num = num / base;
