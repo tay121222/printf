@@ -90,3 +90,54 @@ int print_S(char *str)
 
 	return (count);
 }
+
+/**
+ * print_pointer - prints a void pointer in hex
+ * @ptr: pointer to print
+ *
+ * Return: the number of characters printed
+ */
+int print_pointer(void *ptr)
+{
+	unsigned long int n = (unsigned long int)ptr;
+	char hex_digits[] = "0123456789abcdef";
+	int count = 0;
+
+	_putchar('0');
+	_putchar('x');
+	if (n == 0)
+	{
+		_putchar('0');
+		count += 3;
+	}
+	else
+	{
+		char buffer[16];
+		int i = 0, j;
+
+		while (n != 0)
+		{
+			int gee = n % 16;
+			buffer[i] = hex_digits[gee];
+			n /= 16;
+			i++;
+		}
+		count += i + 2;
+		for (j = i - 1; j >= 0; j--)
+		{
+			_putchar(buffer[j]);
+		}
+	}
+	return (count);
+}
+
+/**
+ * handles conversion format p
+ * @p pointer to print
+ *
+ * Return: number of characters
+ */
+int printf_pointer(void *p)
+{
+	return print_pointer(p);
+}
