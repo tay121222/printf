@@ -1,5 +1,6 @@
 #include "main.h"
 #include <stdio.h>
+#include <stdlib.h>
 /**
  * print_unsi - prints unsgined int in a particular base
  * @n: unsigned int to print
@@ -40,25 +41,41 @@ int print_unsi(unsigned long int n, int base)
  *
  * Return: the number of characters printed
  */
-int print_hex(unsigned long int n, int uppercase)
+int print_hex(unsigned int n, int uppercase)
 {
-	const char *hex_digits = "0123456789abcdef";
-	int len = 0;
-	unsigned long int mask = 0xF0000000;
+	int i;
+	int *array;
+	int count = 0;
+	unsigned int temp = n;
 
-	if (uppercase)
-		hex_digits = "0123456789ABCDEF";
-
-	while (mask > 0)
+	while (n / 16 != 0)
 	{
-		int hex_digit = (n & mask) >> (4 * (8 - len - 1));
+		n /= 16;
+		count++;
+	}
+	count++;
+	array = malloc(count * sizeof(int));
 
-		_putchar(hex_digits[hex_digit]);
-		mask >>= 4;
-		len++;
+	for (i = 0; i < count; i++)
+	{
+		array[i] = temp % 16;
+		temp /= 16;
 	}
 
-	return (len);
+	for (i = count - 1; i >= 0;i--)
+	{
+		if (array[i] > 9)
+		{
+			if (uppercase)
+				_putchar(array[i] + 55);
+			else
+				_putchar(array[i] + 87);
+		}
+		else
+			_putchar(array[i] + '0');
+	}
+	free(array);
+	return (count);
 }
 
 /**
