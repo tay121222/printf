@@ -7,7 +7,7 @@
  *
  * Return: the number of characters printed
  */
-int print_unsi(unsigned int n, int base)
+int print_unsi(unsigned long int n, int base)
 {
 	int len = 0;
 	char *digits = "0123456789";
@@ -40,11 +40,11 @@ int print_unsi(unsigned int n, int base)
  *
  * Return: the number of characters printed
  */
-int print_hex(unsigned int n, int uppercase)
+int print_hex(unsigned long int n, int uppercase)
 {
 	const char *hex_digits = "0123456789abcdef";
 	int len = 0;
-	unsigned int mask = 0xF0000000;
+	unsigned long int mask = 0xF0000000;
 
 	if (uppercase)
 		hex_digits = "0123456789ABCDEF";
@@ -92,7 +92,7 @@ int print_str(char *str)
  */
 int print_number(int n)
 {
-	unsigned int num;
+	int num;
 	int len = 0;
 
 	if (n < 0)
