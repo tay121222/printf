@@ -18,6 +18,5 @@ int write_buffer(char *buffer, int len);
 int print_unsi2(unsigned int n, int base);
 int print_S(char *str);
 int print_pointer(void *ptr);
-int printf_pointer(void *p);
 
 #endif

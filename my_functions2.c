@@ -103,6 +103,16 @@ int print_pointer(void *ptr)
 	char hex_digits[] = "0123456789abcdef";
 	int count = 0;
 
+	if (ptr == NULL)
+	{
+		count += _putchar('(');
+		count += _putchar('n');
+		count += _putchar('i');
+		count += _putchar('l');
+		count += _putchar(')');
+		return (count);
+	}
+
 	_putchar('0');
 	_putchar('x');
 	if (n == 0)
@@ -129,15 +139,4 @@ int print_pointer(void *ptr)
 		}
 	}
 	return (count);
-}
-
-/**
- * handles conversion format p
- * @p pointer to print
- *
- * Return: number of characters
- */
-int printf_pointer(void *p)
-{
-	return print_pointer(p);
 }

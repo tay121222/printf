@@ -68,7 +68,7 @@ int format_handler(char format, va_list args)
 	else if (format == 'S')
 		len += print_S(va_arg(args, char *));
 	else if (format == 'p')
-		len += printf_pointer(va_arg(args, void *));
+		len += print_pointer(va_arg(args, void *));
 	else
 		len += _putchar('%'), len += _putchar(format);
 
