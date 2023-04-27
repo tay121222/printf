@@ -18,5 +18,8 @@ int write_buffer(char *buffer, int len);
 int print_unsi2(unsigned int n, int base);
 int print_S(char *str);
 int print_pointer(void *ptr);
+void write_buffer2(int output_fd, char *buffer, int buffer_size);
+void fill_buffer(unsigned int n, int uppercase, char *buffer, int *buffer_index);
+int print_hex3(int output_fd, unsigned int n, int uppercase);
 
 #endif
