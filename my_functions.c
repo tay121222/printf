@@ -148,7 +148,7 @@ int print_str(char *str)
  */
 int print_number(int n, int flags)
 {
-	unsigned long int num;
+	unsigned int num;
 	int len = 0;
 
 	if (n < 0)

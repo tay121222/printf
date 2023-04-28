@@ -7,7 +7,7 @@
 #define BUF_SIZE 1024
 #define PLUS_FLAG 1
 #define SPACE_FLAG 2
-#define ZERO_FLAG 4
+#define HASH_FLAG 4
 
 int _printf(const char *format, ...);
 int _putchar(char c);
@@ -24,5 +24,6 @@ int print_pointer(void *ptr);
 void write_buffer2(int output_fd, char *buffer, int buffer_size);
 void fill_buffer(unsigned int n, int uppercase, char *buffer, int *buffer_index);
 int print_hex3(int output_fd, unsigned int n, int uppercase);
+int get_flags(char *format);
 
 #endif

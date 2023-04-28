@@ -140,3 +140,22 @@ int print_pointer(void *ptr)
 	}
 	return (count);
 }
+
+int get_flags(char *format)
+{
+	int flags = 0;
+
+	while (*format == '+' ||*format == ' ' || *format == '#')
+	{
+		if (*format == '+')
+			flags |= PLUS_FLAG;
+		else if (*format == ' ')
+			flags |= SPACE_FLAG;
+		else if (*format == '#')
+			flags |= HASH_FLAG;
+
+		format++;
+	}
+
+	return (flags);
+}
