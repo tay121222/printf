@@ -5,11 +5,14 @@
 #include <stddef.h>
 
 #define BUF_SIZE 1024
+#define PLUS_FLAG 1
+#define SPACE_FLAG 2
+#define ZERO_FLAG 4
 
 int _printf(const char *format, ...);
 int _putchar(char c);
 int print_str(char *str);
-int print_number(int n);
+int print_number(int n, int flags);
 int print_binary(unsigned long int n);
 int print_unsi(int output_fd, unsigned int n, int base);
 int print_hex(int output_fd, unsigned int n, int uppercase);

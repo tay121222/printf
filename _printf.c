@@ -46,6 +46,7 @@ int format_handler(char format, va_list args)
 {
 	int len = 0;
 	int output_fd = 1;
+	int flags = PLUS_FLAG;
 
 	if (format == 'c')
 		len += _putchar(va_arg(args, int));
@@ -54,7 +55,7 @@ int format_handler(char format, va_list args)
 	else if (format == '%')
 		len += _putchar('%');
 	else if (format == 'd' || format == 'i')
-		len += print_number(va_arg(args, int));
+		len += print_number(va_arg(args, int), flags);
 	else if (format == 'b')
 		len += print_binary(va_arg(args, unsigned long int));
 	else if (format == 'u')

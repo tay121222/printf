@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <stdbool.h>
 
 static char buffer[BUFFER_SIZE];
 /**
@@ -145,7 +146,7 @@ int print_str(char *str)
  *
  * Return: the number of characters printed
  */
-int print_number(int n)
+int print_number(int n, int flags)
 {
 	unsigned long int num;
 	int len = 0;
@@ -158,9 +159,20 @@ int print_number(int n)
 	else
 		num = n;
 
+	if ((flags & PLUS_FLAG) && n >= 0)
+	{
+		len += _putchar('+');
+		flags &= ~PLUS_FLAG;
+	}
+	else if ((flags & SPACE_FLAG) && n >= 0)
+	{
+		len += _putchar(' ');
+		flags &= ~SPACE_FLAG;
+	}
+	
 	if (num / 10 != 0)
 	{
-		len += print_number(num / 10);
+		len += print_number(num / 10, flags);
 	}
 
 	len += _putchar('0' + num % 10);
