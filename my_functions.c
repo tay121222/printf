@@ -92,8 +92,10 @@ int print_hex(int output_fd, unsigned int n, int uppercase, int flags)
 	if (flags & HASH_FLAG && n != 0)
 	{
 		if (uppercase)
-			buffer[buffer_index] = '0', buffer_index++;
-		buffer[buffer_index] = 'x', buffer_index++;
+			buffer[buffer_index++] = 'X';
+		else
+			buffer[buffer_index++] = 'x';
+		buffer[buffer_index++] = '0';
 	}
 
 	for (i = count - 1; i >= 0; i--)
@@ -176,7 +178,7 @@ int print_number(int n, int flags)
 		len += _putchar(' ');
 		flags &= ~SPACE_FLAG;
 	}
-	
+
 	if (num / 10 != 0)
 	{
 		len += print_number(num / 10, flags);

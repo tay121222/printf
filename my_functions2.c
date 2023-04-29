@@ -208,29 +208,32 @@ int print_pointer(void *ptr)
 
 /**
  * get_flags - get flag value for specifier
+ * @format: format to get flag for
+ * @index: current index of format
  *
  * Return: resturn flag value for specifier
  */
-int get_flags(char *format)
+int get_flags(const char *format, int *index)
 {
 	int flags = 0;
+	int i = *index;
 
 	/**
 	 * format[1] = '\0';
 	 * printf("format: %s\n", format);
 	 */
 
-	while (*format == '+' || *format == ' ' || *format == '#')
+	while (format[i] == '+' || format[i] == ' ' || format[i] == '#')
 	{
-		if (*format == '+')
+		if (format[i] == '+')
 			flags |= PLUS_FLAG;
-		else if (*format == ' ')
+		else if (format[i] == ' ')
 			flags |= SPACE_FLAG;
-		else if (*format == '#')
+		else if (format[i] == '#')
 			flags |= HASH_FLAG;
 
-		format++;
+		i++;
 	}
-
+	*index = i;
 	return (flags);
 }

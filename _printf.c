@@ -11,6 +11,7 @@ int _printf(const char *format, ...)
 {
 	va_list args;
 	int i = 0, len = 0;
+	int flags = 0;
 
 	if (format == NULL)
 		return (-1);
@@ -22,7 +23,8 @@ int _printf(const char *format, ...)
 		if (format[i] == '%')
 		{
 			i++;
-			len += format_handler(format[i], args);
+			flags = get_flags(format, &i);
+			len += format_handler(format[i], args, flags);
 		}
 		else
 			len += _putchar(format[i]);
@@ -39,16 +41,16 @@ int _printf(const char *format, ...)
  * format_handler - handles format directives
  * @format: the format character
  * @args: the va_list arguments
+ * @flags: which flag to use for associated specifier
  *
  * Return: number of characters printed
  */
-int format_handler(char format, va_list args)
+int format_handler(char format, va_list args, int flags)
 {
 	int len = 0;
 	int output_fd = 1;
-	int flags = get_flags(&format);
 
-	/* printf("format: %c, flags: %d\n", format, flags);*/
+	/*printf("format: %c, flags: %d\n", format, flags);*/
 
 	if (format == 'c')
 		len += _putchar(va_arg(args, int));
