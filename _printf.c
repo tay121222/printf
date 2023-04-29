@@ -47,7 +47,9 @@ int format_handler(char format, va_list args)
 	int len = 0;
 	int output_fd = 1;
 	int flags = get_flags(&format);
-	
+
+	/* printf("format: %c, flags: %d\n", format, flags);*/
+
 	if (format == 'c')
 		len += _putchar(va_arg(args, int));
 	else if (format == 's')
@@ -63,9 +65,9 @@ int format_handler(char format, va_list args)
 	else if (format == 'o')
 		len += print_unsi(output_fd, va_arg(args, unsigned int), 8);
 	else if (format == 'x')
-		len += print_hex(output_fd, va_arg(args, unsigned int), 0);
+		len += print_hex(output_fd, va_arg(args, unsigned int), 0, flags);
 	else if (format == 'X')
-		len += print_hex(output_fd, va_arg(args, unsigned int), 1);
+		len += print_hex(output_fd, va_arg(args, unsigned int), 1, flags);
 	else if (format == 'S')
 		len += print_S(va_arg(args, char *));
 	else if (format == 'p')

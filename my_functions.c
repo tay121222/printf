@@ -67,7 +67,7 @@ int print_unsi(int output_fd, unsigned int n, int base)
  *
  * Return: the number of characters printed
  */
-int print_hex(int output_fd, unsigned int n, int uppercase)
+int print_hex(int output_fd, unsigned int n, int uppercase, int flags)
 {
 	int i;
 	int *array;
@@ -87,6 +87,13 @@ int print_hex(int output_fd, unsigned int n, int uppercase)
 	{
 		array[i] = temp % 16;
 		temp /= 16;
+	}
+
+	if (flags & HASH_FLAG && n != 0)
+	{
+		if (uppercase)
+			buffer[buffer_index] = '0', buffer_index++;
+		buffer[buffer_index] = 'x', buffer_index++;
 	}
 
 	for (i = count - 1; i >= 0; i--)

@@ -1,6 +1,11 @@
+#define BUFFER_SIZE 1024
 #include <stdio.h>
 #include <stdlib.h>
 #include "main.h"
+#include <unistd.h>
+
+static char buffer[BUFFER_SIZE];
+
 /**
  * print_unsi2 - prints unsgined int in a particular base
  * @n: unsigned int to print
@@ -84,12 +89,71 @@ int print_S(char *str)
 				_putchar('0');
 				count++;
 			}
-			count += print_hex(output_fd, (unsigned int)str[i], 1);
+			count += print_hex_other(output_fd, (unsigned int)str[i], 1);
 		}
 	}
 
 	return (count);
 }
+
+/**
+ * print_hex_other - prints an unsigned int in hex
+ * @n: number to print in hex
+ * @uppercase: boolean to determine if to use uppercase
+ * @output_fd: the output descriptor
+ *
+ * Return: the number of characters printed
+ */
+int print_hex_other(int output_fd, unsigned int n, int uppercase)
+{
+	int i;
+	int *array;
+	int count = 0;
+	unsigned int temp = n;
+	int buffer_index = 0;
+
+	while (n / 16 != 0)
+	{
+		n /= 16;
+		count++;
+	}
+	count++;
+	array = malloc(count * sizeof(int));
+
+	for (i = 0; i < count; i++)
+	{
+		array[i] = temp % 16;
+		temp /= 16;
+	}
+
+	for (i = count - 1; i >= 0; i--)
+	{
+		if (array[i] > 9)
+		{
+			if (uppercase)
+				buffer[buffer_index] = (array[i] + 55);
+			else
+				buffer[buffer_index] = (array[i] + 87);
+		}
+		else
+			buffer[buffer_index] = (array[i] + '0');
+
+		buffer_index++;
+
+		if (buffer_index == 1024)
+		{
+			write(output_fd, buffer, 1024);
+			buffer_index = 0;
+		}
+	}
+
+	if (buffer_index != 0)
+		write(output_fd, buffer, buffer_index);
+
+	free(array);
+	return (count);
+}
+
 
 /**
  * print_pointer - prints a void pointer in hex
@@ -128,6 +192,7 @@ int print_pointer(void *ptr)
 		while (n != 0)
 		{
 			int gee = n % 16;
+
 			buffer[i] = hex_digits[gee];
 			n /= 16;
 			i++;
@@ -141,11 +206,21 @@ int print_pointer(void *ptr)
 	return (count);
 }
 
+/**
+ * get_flags - get flag value for specifier
+ *
+ * Return: resturn flag value for specifier
+ */
 int get_flags(char *format)
 {
 	int flags = 0;
 
-	while (*format == '+' ||*format == ' ' || *format == '#')
+	/**
+	 * format[1] = '\0';
+	 * printf("format: %s\n", format);
+	 */
+
+	while (*format == '+' || *format == ' ' || *format == '#')
 	{
 		if (*format == '+')
 			flags |= PLUS_FLAG;
